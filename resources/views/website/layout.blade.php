@@ -76,7 +76,7 @@
             color: var(--secondary-color);
             margin-bottom: 1.5rem;
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: .75rem;
         }
 
         .footer a {
@@ -109,6 +109,10 @@
             color: var(--secondary-color);
             width: 20px;
             margin-top: 2px;
+        }
+
+        .footer p {
+            font-size:12px;
         }
 
         .social-links a {
