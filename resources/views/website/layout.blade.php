@@ -213,11 +213,11 @@
                             </ul>
                         </li>
                     @else
-                        <li class="nav-item ms-2">
+                        <!--<li class="nav-item ms-2">
                             <a class="btn btn-primary-custom" href="{{ route('student.login') }}">
                                 <i class="fas fa-sign-in-alt me-1"></i> Student Login
                             </a>
-                        </li>
+                        </li> -->
                     @endauth
                 </ul>
             </div>
@@ -230,44 +230,14 @@
     </main>
 
     <!-- Footer -->
+
+
     <footer class="footer">
 
          <div class="container">
-        @if(request()->segment(1)=="student-dashboard")
-            <div class="container-text">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0" >
-                    <h5>About LMS Learning</h5>
-                    <p>Empowering students with quality education and comprehensive learning resources to achieve their career goals.</p>
-                    <div class="social-links mt-3">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4 mb-md-0">
-                   <!-- <h5>Quick Links</h5>-->
-                    {{--<ul class="list-unstyled">
-                        <li><a href="{{ url('/about') }}"><i class="fas fa-chevron-right me-2"></i> About Us</a></li>
-                        <li><a href="{{ url('/courses') }}"><i class="fas fa-chevron-right me-2"></i> Our Courses</a></li>
-                        <li><a href="{{ url('/contact') }}"><i class="fas fa-chevron-right me-2"></i> Contact</a></li>
-                        <li><a href="{{ url('/login') }}"><i class="fas fa-chevron-right me-2"></i> Login</a></li>
-                    </ul> --}}
-                </div>
-                <div class="col-md-4 mb-4 mb-md-5"  >
-                    <h5>Contact Info</h5>
-                    <ul class="list-unstyled contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> <span>Your Address Here</span></li>
-                        <li><i class="fas fa-phone"></i> <span>+91 1234567890</span></li>
-                        <li><i class="fas fa-envelope"></i> <span>info@lmslearning.com</span></li>
-                    </ul>
-                </div>
-               </div>
-            </div>
-            <hr class="my-4" style="background-color: rgba(255,255,255,0.1);">         
-        @endif
-            
+
+         <!-- CONTENT HERE --->
+
             <div class="row">
                 <div class="col-md-12" style="text-align:center;">
                     <p class="mb-0">&copy; 2026 Principle Institute Of Management And Technology . All rights reserved.</p>
