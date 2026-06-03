@@ -282,6 +282,7 @@
         .login-icon-wrap { width: 60px; height: 60px; font-size: 1.5rem; border-radius: 18px; }
         .login-header h3 { font-size: 1.3rem; }
     }
+ 
 </style>
 @endpush
 
@@ -322,7 +323,7 @@
                                            placeholder="Enter Your id"
                                            value="{{ old('candidate_id') }}"
                                            maxlength="10"
-                                           required>
+                                           required autocomplete=off >
                                 </div>
                                 @error('mobile')
                                     <div class="text-danger mt-1">{{ $message }}</div>
@@ -338,7 +339,7 @@
                                            id="password"
                                            name="password"
                                            placeholder="Enter your password"
-                                           required>
+                                           required autocomplete=off >
                                 </div>
                                 @error('password')
                                     <div class="text-danger mt-1">{{ $message }}</div>
