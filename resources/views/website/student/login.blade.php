@@ -59,7 +59,7 @@
     /* ===== LOGIN PAGE ===== */
     .login-section {
         position: relative;
-        min-height: calc(100vh - 80px);
+        min-height: calc(100vh - 140px);
         display: flex;
         align-items: center;
         background: var(--bg-deep);
