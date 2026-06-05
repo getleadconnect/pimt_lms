@@ -805,9 +805,123 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 @endif
-
-                <!-- Info cards and continuelearning sections removed----->
                 
+                {{-- STAT CARDS --}}
+                <div class="stat-row">
+                    <a href="{{ url('/courses') }}" class="stat-card fade-in d-1">
+                        <div class="stat-icon green"><i class="fas fa-book-open"></i></div>
+                        <div class="stat-value">{{ $enrolledCourseCount ?? 0 }}</div>
+                        <div class="stat-label">Enrolled Course{{ ($enrolledCourseCount ?? 0) == 1 ? '' : 's' }}</div>
+                    </a>
+                    <div class="stat-card fade-in d-2">
+                        <div class="stat-icon green"><i class="fas fa-check-square"></i></div>
+                        <div class="stat-value">{{ $lessonsCompleted ?? 0 }}</div>
+                        <div class="stat-label">Lessons Completed</div>
+                    </div>
+                    <div class="stat-card fade-in d-3">
+                        <div class="stat-icon blue"><i class="fas fa-photo-video"></i></div>
+                        <div class="stat-value">{{ $totalVideos ?? 0 }}</div>
+                        <div class="stat-label">Total Videos</div>
+                    </div>
+                    <div class="stat-card fade-in d-4">
+                        <div class="stat-icon amber"><i class="fas fa-clock"></i></div>
+                        <div class="stat-value">{{ $learningHours ?? 0 }}h</div>
+                        <div class="stat-label">Learning Time</div>
+                    </div>
+                </div> 
+
+                {{-- CONTINUE LEARNING + UPCOMING LESSONS --}}
+                <div class="content-grid">
+                    <div class="panel fade-in">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Continue Learning</h3>
+                            <a href="{{ url('/courses') }}" class="panel-link">View All</a>
+                        </div>
+                        @if(!empty($continueLearning) && count($continueLearning) > 0)
+                            <div class="cl-list">
+                                @foreach($continueLearning as $cl)
+                                    @php
+                                        $encodedCourseId = base64_encode((string) str_pad($cl->course_id,10,'0',STR_PAD_LEFT));
+                                    @endphp
+                                    <a href="{{ route('student.course-mock-test', $encodedCourseId) }}" style="text-decoration: none;">
+                                    <div class="cl-card"
+                                         role="button"
+                                         tabindex="0"
+                                         {{-- <!--onclick="openCourseChoice({{ $cl->course_id }}, '{{ addslashes($cl->course_name) }}', '{{ route('student.course-content', $cl->course_id) }}', '{{ route('student.course-mock-test', $encodedCourseId) }}')"--> --}}
+                                         
+                                         >
+                                        <div class="cl-thumb">
+                                            @if($cl->course_icon)
+                                                {{--<img src="{{ config('constants.course_icon').$cl->course_icon }}" alt="{{ $cl->course_name }}">--}}
+                                                <img src="{{ asset('assets/course_icon.png') }}" alt="{{ $cl->course_name }}">
+                                            @else
+                                                <i class="fas fa-book"></i>
+                                            @endif
+                                        </div>
+                                        <div class="cl-body">
+                                            <h4 class="cl-title">{{ $cl->course_name }}</h4>
+                                            <div class="cl-meta">
+                                                <span><i class="fas fa-calendar-check"></i> {{ \Carbon\Carbon::parse($cl->start_date)->format('d M Y') }}</span>
+                                                <span class="mx-2">|</span>
+                                                <span><i class="fas fa-hourglass-half"></i> {{ $cl->valid_till }}</span>
+                                                <span class="badge-pill cl-status {{ $cl->is_expired ? 'expired' : 'active' }}">
+                                                    @if($cl->is_expired)
+                                                        <i class="fas fa-times-circle"></i> {{ $cl->subscription_status }}
+                                                    @else
+                                                        <i class="fas fa-clock"></i> {{ $cl->subscription_status }}
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="cl-progress">
+                                                <div class="cl-progress-bar" style="width: {{ $cl->percent }}%;"></div>
+                                            </div>
+                                            <div class="cl-progress-meta">
+                                                <span>{{ $cl->videos_done }}/{{ $cl->videos_total }} videos completed</span>
+                                                <span class="pct">{{ $cl->percent }}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="empty">
+                                <div class="empty-icon"><i class="fas fa-play-circle"></i></div>
+                                <p>Enroll in a course to start learning.</p>
+                                <a href="{{ url('/courses') }}" class="btn-cta">Browse Courses</a>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="panel fade-in">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Upcoming Lessons</h3>
+                        </div>
+                        @if(isset($upcomingLessons) && count($upcomingLessons) > 0)
+                            @foreach($upcomingLessons as $idx => $lesson)
+                                <div class="lesson-item">
+                                    <div class="lesson-num">
+                                        <div class="num">{{ $idx + 1 }}</div>
+                                        <div class="lbl">Next</div>
+                                    </div>
+                                    <div class="lesson-body">
+                                        <h5 class="lesson-title">{{ $lesson->title ?: $lesson->chapter_name }}</h5>
+                                        <p class="lesson-desc">{{ $lesson->chapter_name ? $lesson->chapter_name.' · ' : '' }}{{ $lesson->description ?: 'Continue this chapter to make progress.' }}</p>
+                                    </div>
+                                    <a href="{{ route('student.course-content', $lesson->course_id) }}" class="lesson-play" title="Play">
+                                        <i class="fas fa-play"></i>
+                                    </a>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="empty">
+                                <div class="empty-icon"><i class="fas fa-list-ul"></i></div>
+                                <p>No upcoming lessons. You're all caught up!</p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
                 {{-- QUESTION PAPERS TABLE --}}
                 <div class="panel fade-in qpaper-panel mb-3">
                     <div class="panel-header">
@@ -862,8 +976,6 @@
                                                        class="btn-add">
                                                         <i class="fas fa-plus me-1"></i>Attend Test
                                                     </a>
-                                                 @else
-                                                    ---
                                                 @endif
                                             </td>
                                         </tr>
@@ -879,7 +991,96 @@
                     @endif
                 </div>
 
-                <!--- Live and recorded class section removed ----------->
+
+                {{-- LIVE & RECORDED CLASSES --}}
+                <div class="row g-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="panel fade-in" style="margin: 0;">
+                            <div class="panel-header">
+                                <h3 class="panel-title"><i class="fas fa-video me-2" style="color: var(--blue);"></i>Online Classes</h3>
+                                @if(isset($liveClasses) && count($liveClasses) > 0)
+                                    <span class="panel-link" style="cursor:default;">{{ count($liveClasses) }}</span>
+                                @endif
+                            </div>
+                            @if(isset($liveClasses) && count($liveClasses) > 0)
+                                <div class="class-list">
+                                    @foreach($liveClasses as $liveClass)
+                                        <div class="class-row">
+                                            <div class="class-thumb">
+                                                @if($liveClass->class_icon)
+                                                    <img src="{{ config('constants.live_class_icon').$liveClass->class_icon }}" alt="{{ $liveClass->title }}">
+                                                @else
+                                                    <i class="fas fa-chalkboard-teacher"></i>
+                                                @endif
+                                            </div>
+                                            <div class="class-info">
+                                                <h5 class="class-name">{{ $liveClass->title }}</h5>
+                                                <div class="class-meta">
+                                                    <span><i class="fas fa-user"></i>{{ $liveClass->conducted_by }}</span>
+                                                    <span><i class="fas fa-calendar"></i>{{ \Carbon\Carbon::parse($liveClass->start_date)->format('d M Y') }}</span>
+                                                    <span><i class="fas fa-clock"></i>{{ \Carbon\Carbon::parse($liveClass->start_time)->format('h:i A') }}</span>
+                                                </div>
+                                            </div>
+                                            @if($liveClass->class_link)
+                                                <a href="{{ $liveClass->class_link }}" target="_blank" class="btn-join">
+                                                    <i class="fas fa-external-link-alt"></i> Join
+                                                </a>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="empty">
+                                    <div class="empty-icon"><i class="fas fa-video"></i></div>
+                                    <p>No online classes scheduled.</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="panel fade-in" style="margin: 0;">
+                            <div class="panel-header">
+                                <h3 class="panel-title"><i class="fas fa-play-circle me-2" style="color: var(--pink);"></i>Recorded Classes</h3>
+                                @if(isset($recordedClasses) && count($recordedClasses) > 0)
+                                    <span class="panel-link" style="cursor:default;">{{ count($recordedClasses) }}</span>
+                                @endif
+                            </div>
+                            @if(isset($recordedClasses) && count($recordedClasses) > 0)
+                                <div class="class-list">
+                                    @foreach($recordedClasses as $recordedClass)
+                                        <div class="class-row">
+                                            <div class="class-thumb rec">
+                                                @if($recordedClass->class_icon)
+                                                    <img src="{{ config('constants.recorded_class_icon').$recordedClass->class_icon }}" alt="{{ $recordedClass->title }}">
+                                                @else
+                                                    <i class="fas fa-play-circle"></i>
+                                                @endif
+                                            </div>
+                                            <div class="class-info">
+                                                <h5 class="class-name">{{ $recordedClass->title }}</h5>
+                                                <div class="class-meta">
+                                                    <span><i class="fas fa-user"></i>{{ $recordedClass->class_by }}</span>
+                                                    @if($recordedClass->duration)
+                                                        <span><i class="fas fa-hourglass-half"></i>{{ $recordedClass->duration }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <a href="{{ route('student.recorded-classes', $recordedClass->course_id) }}" class="btn-watch">
+                                                <i class="fas fa-play"></i> Watch
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="empty">
+                                    <div class="empty-icon"><i class="fas fa-play-circle"></i></div>
+                                    <p>No recorded classes yet.</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
 
             </div>{{-- /dash-content --}}
         </div>{{-- /dash-wrapper --}}

@@ -231,10 +231,9 @@
 
     <!-- Footer -->
 
-
     <footer class="footer">
 
-         <div class="container">
+    <div class="container">
 
          <!-- CONTENT HERE --->
 
