@@ -768,7 +768,7 @@
 
                 <div class="sidebar-section" style="margin-top: 16px;">Account</div>
                 <a href="{{ route('student.profile') }}" class="sidebar-link">
-                    <i class="fas fa-cog"></i> Profile
+                    <i class="fas fa-user"></i> Profile
                 </a>
                 <form action="{{ route('student.logout') }}" method="POST" class="sidebar-form">
                     @csrf
