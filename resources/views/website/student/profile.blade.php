@@ -460,9 +460,10 @@
                         </div>
 
                         <div class="d-flex gap-2 mt-4">
-                            <button type="submit" class="btn-update">
+                           <!-- <button type="submit" class="btn-update">
                                 <i class="fas fa-save"></i> Update Profile
-                            </button>
+                            </button> -->
+                            
                             <a href="{{ route('student.dashboard') }}" class="btn-cancel">
                                 <i class="fas fa-times"></i> Cancel
                             </a>
