@@ -148,7 +148,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{url('/student-dashboard')}}">
-                <img src="{{url('assets/logo-pimt.png')}}" style="height:60px;">
+              <!--  <img src="{{url('assets/logo-pimt.png')}}" style="height:60px;">-->
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -238,9 +238,9 @@
          <!-- CONTENT HERE --->
 
             <div class="row">
-                <div class="col-md-12" style="text-align:center;">
+               <!-- <div class="col-md-12" style="text-align:center;">
                     <p class="mb-0">&copy; 2026 Principle Institute Of Management And Technology . All rights reserved.</p>
-                </div>
+                </div> -->
                 <!--<div class="col-md-6 text-end">
                    <a href="{{ url('/privacy-policy') }}" class="me-3">Privacy Policy</a>
                     <a href="{{ url('/terms') }}">Terms & Conditions</a> 
