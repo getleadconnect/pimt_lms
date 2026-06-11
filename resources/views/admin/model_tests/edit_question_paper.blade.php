@@ -74,6 +74,19 @@
 		</div> 
 		</div>
 	</div>
+
+	<div class="form-group">
+		<div class="row">
+		<div class="col-lg-6 col-xl-6 col-xxl-6">
+		<label>Start Time</label>
+		<input class="form-control mb-3" type="time" name="start_time_edit" placeholder="start date" value="{{$qp->start_time}}" required>
+		</div>
+		<div class="col-lg-6 col-xl-6 col-xxl-6">
+		<label>End Time</label>
+		<input class="form-control mb-3" type="time" name="end_time_edit" placeholder="end time" value="{{$qp->end_time}}" required>
+		</div> 
+		</div>
+	</div>
 	
 	<div class="form-group">
 		<div class="row mb-3">

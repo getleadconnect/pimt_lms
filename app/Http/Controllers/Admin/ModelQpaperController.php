@@ -240,6 +240,8 @@ public function view_data(Request $request)
 			 'start_date_edit'=>'required',
 			 'duration_edit'=>'required',
 			 'description_edit'=>'required',
+			 'start_time_edit'=>'required',
+			 'end_time_edit'=>'required',
         ]);
 	  
 	    if ($validate->fails())
@@ -270,6 +272,8 @@ public function view_data(Request $request)
 			 'question_paper_name'=>$request->question_paper_edit,
 			 'start_date'=>$request->start_date_edit,
 			 'duration'=>$request->duration_edit,
+			 'start_time'=>$request->start_time_edit,
+			 'end_time'=>$request->end_time_edit,
 			 'description'=>$request->description_edit,
 			 'explanation_video'=>$fname1,
 			];
